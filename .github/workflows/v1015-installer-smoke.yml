@@ -1,0 +1,63 @@
+name: v1.0.15 disposable Windows installer smoke test
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/v1015-installer-smoke.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  installer-smoke:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - name: Download and verify published installer
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $url = 'https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.15/MyanglishInstaller.exe'
+          Invoke-WebRequest -Uri $url -OutFile "$env:RUNNER_TEMP\MyanglishInstaller.exe"
+          $expected = '7CB6E5262996193B657D8A7CACAA78BB2844F3F120BA49272530EAECF444D108'
+          $actual = (Get-FileHash "$env:RUNNER_TEMP\MyanglishInstaller.exe" -Algorithm SHA256).Hash
+          if ($actual -ne $expected) { throw "SHA-256 mismatch: $actual" }
+          Write-Host "PASS: Release installer SHA-256 $actual"
+      - name: Snapshot clean runner
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (Test-Path 'C:\Program Files\Myanglish') { throw 'Unexpected pre-existing Myanglish installation' }
+          Get-ScheduledTask -TaskName 'Myanglish Auto Update' -ErrorAction SilentlyContinue | Format-List *
+      - name: Install silently on disposable runner
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $p = Start-Process -FilePath "$env:RUNNER_TEMP\MyanglishInstaller.exe" -ArgumentList '/silent' -Wait -PassThru
+          Write-Host "Installer exit code: $($p.ExitCode)"
+          if ($p.ExitCode -ne 0) { throw "Install failed: $($p.ExitCode)" }
+          $dll = 'C:\Program Files\Myanglish\versions\1.0.15\MyanglishIME.dll'
+          if (!(Test-Path $dll)) { throw "Missing installed DLL: $dll" }
+          Write-Host "PASS: DLL exists: $dll"
+          $task = Get-ScheduledTask -TaskName 'Myanglish Auto Update' -ErrorAction SilentlyContinue
+          if ($task -and $task.State -ne 'Disabled') { throw "Unexpected enabled auto-update task: $($task.State)" }
+          Write-Host 'PASS: no enabled auto-update task'
+      - name: Uninstall silently on disposable runner
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $p = Start-Process -FilePath "$env:RUNNER_TEMP\MyanglishInstaller.exe" -ArgumentList '/silent /uninstall' -Wait -PassThru
+          Write-Host "Uninstaller exit code: $($p.ExitCode)"
+          if ($p.ExitCode -ne 0) { throw "Uninstall failed: $($p.ExitCode)" }
+          Write-Host 'PASS: uninstall returned success (deferred cleanup may require reboot)'
+      - name: Collect installer logs
+        if: always()
+        shell: pwsh
+        run: |
+          $paths = @('C:\Program Files\Myanglish', "$env:LOCALAPPDATA\MyanglishIME", "$env:TEMP")
+          foreach ($path in $paths) {
+            if (Test-Path $path) {
+              Get-ChildItem -Path $path -Filter '*setup*.log' -Recurse -ErrorAction SilentlyContinue | Select-Object -First 20 -ExpandProperty FullName
+            }
+          }
