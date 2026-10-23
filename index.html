@@ -808,10 +808,41 @@ footer {
     color: #111;
 }
 
+
+/* Fixed full-page motion background. Content remains readable over the video. */
+.motion-background {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    pointer-events: none;
+}
+.motion-background-wash {
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,.70);
+    z-index: -1;
+    pointer-events: none;
+}
+body { background: #fff; isolation: isolate; }
+.section-soft { background: rgba(246,246,247,.80); }
+.section:not(.section-soft), footer { background: rgba(255,255,255,.28); }
+@media (prefers-reduced-motion: reduce) {
+    .motion-background { display: none; }
+    .motion-background-wash { background: #fff; }
+}
+
 </style>
 </head>
 
 <body>
+<video class="motion-background" autoplay muted loop playsinline preload="metadata" aria-hidden="true" poster="">
+    <source src="video/background.mp4" type="video/mp4">
+</video>
+<div class="motion-background-wash" aria-hidden="true"></div>
+
 
 <nav>
     <div class="nav-inner">
