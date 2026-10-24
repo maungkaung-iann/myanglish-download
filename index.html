@@ -941,6 +941,45 @@ body { background: #fff; isolation: isolate; }
         backdrop-filter: blur(12px);
     }
 }
+
+/* Scroll-scrubbed typing video, contained in the existing Try section. */
+.scroll-demo { position: relative; height: 240vh; margin: 38px auto 0; }
+.scroll-demo-sticky { position: sticky; top: clamp(80px, 13vh, 145px); max-width: 940px; margin: auto; }
+.scroll-demo-glass {
+    overflow: hidden; border-radius: 28px; padding: 14px;
+    background: rgba(255,255,255,.36);
+    border: 1px solid rgba(255,255,255,.76);
+    -webkit-backdrop-filter: blur(22px) saturate(145%);
+    backdrop-filter: blur(22px) saturate(145%);
+    box-shadow: 0 22px 65px rgba(25,35,55,.15);
+}
+.scroll-demo-top, .scroll-demo-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 8px 10px 15px;
+    font-size: 12px; font-weight: 700; letter-spacing: .10em; color: #323b49;
+}
+.scroll-demo-top { justify-content: flex-start; }
+.scroll-demo-hint { margin-left: auto; font-size: 11px; color: #626d7d; }
+.scroll-demo-dot { flex: none; width: 9px; height: 9px; border-radius: 50%; background: #50b69b; box-shadow: 0 0 0 4px rgba(80,182,155,.12); }
+#typing-demo-video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #11151d; border-radius: 18px; }
+.scroll-demo-bottom { padding: 16px 10px 11px; font-size: 11px; letter-spacing: .02em; }
+.scroll-demo-counter { font-variant-numeric: tabular-nums; }
+.scroll-demo-track { height: 4px; background: rgba(35,45,60,.12); border-radius: 5px; overflow: hidden; }
+#typing-demo-progress { height: 100%; width: 0; background: #343b4a; border-radius: inherit; }
+.scroll-demo-instruction { text-align: center; margin: 15px 0; color: #505969; font-size: 13px; }
+@media (max-width: 700px) {
+    .scroll-demo { height: 175vh; }
+    .scroll-demo-sticky { top: 80px; }
+    .scroll-demo-glass { border-radius: 19px; padding: 9px; }
+    #typing-demo-video { border-radius: 12px; }
+    .scroll-demo-top, .scroll-demo-bottom { font-size: 10px; }
+    .scroll-demo-hint { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .scroll-demo { height: auto; }
+    .scroll-demo-sticky { position: relative; top: auto; }
+    .scroll-demo-glass { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(255,255,255,.9); }
+}
 </style>
 </head>
 
@@ -1063,24 +1102,25 @@ body { background: #fff; isolation: isolate; }
             </p>
         </div>
 
-        <div class="demo">
-
-            <div class="demo-label">MYANGLISH</div>
-
-            <div class="demo-input">
-                mingalarpar
+        <div class="scroll-demo" aria-label="Myanglish typing video demonstration">
+            <div class="scroll-demo-sticky">
+                <div class="scroll-demo-glass">
+                    <div class="scroll-demo-top">
+                        <span class="scroll-demo-dot"></span>
+                        <span>MYANGLISH · TYPING DEMO</span>
+                        <span class="scroll-demo-hint">SCROLL TO PLAY ↓</span>
+                    </div>
+                    <video id="typing-demo-video" muted playsinline preload="metadata" aria-label="Myanglish typing demonstration video">
+                        <source src="video/typing-demo.mp4" type="video/mp4">
+                    </video>
+                    <div class="scroll-demo-bottom">
+                        <span>English keyboard → Myanmar text</span>
+                        <span class="scroll-demo-counter" id="typing-demo-counter">00%</span>
+                    </div>
+                    <div class="scroll-demo-track" aria-hidden="true"><div id="typing-demo-progress"></div></div>
+                </div>
+                <p class="scroll-demo-instruction">Scroll down to advance the video · Scroll up to rewind</p>
             </div>
-
-            <div class="demo-arrow">
-                ↓ Space
-            </div>
-
-            <div class="demo-label">MYANMAR</div>
-
-            <div class="demo-output">
-                မင်္ဂလာပါ
-            </div>
-
         </div>
 
     </div>
@@ -1707,6 +1747,62 @@ body { background: #fff; isolation: isolate; }
     </div>
 </footer>
 
+
+<script>
+(() => {
+  const video = document.getElementById('typing-demo-video');
+  const section = document.querySelector('.scroll-demo');
+  const bar = document.getElementById('typing-demo-progress');
+  const counter = document.getElementById('typing-demo-counter');
+  if (!video || !section) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let duration = 0;
+  let requestedProgress = 0;
+  let rafPending = false;
+
+  video.pause();
+  video.addEventListener('loadedmetadata', () => {
+    if (Number.isFinite(video.duration) && video.duration > 0) {
+      duration = video.duration;
+      update();
+    }
+  });
+
+  function update() {
+    rafPending = false;
+    if (reduceMotion.matches) return;
+    const rect = section.getBoundingClientRect();
+    const distance = Math.max(1, rect.height - window.innerHeight);
+    requestedProgress = Math.min(1, Math.max(0, -rect.top / distance));
+    bar.style.width = (requestedProgress * 100).toFixed(1) + '%';
+    counter.textContent = String(Math.round(requestedProgress * 100)).padStart(2, '0') + '%';
+    if (duration > 0 && video.readyState >= 1) {
+      const target = Math.min(duration - 0.01, Math.max(0, duration * requestedProgress));
+      if (Math.abs(video.currentTime - target) > 0.045) {
+        try { video.currentTime = target; } catch (_) { /* await seekable data */ }
+      }
+    }
+  }
+
+  function schedule() {
+    if (!rafPending) {
+      rafPending = true;
+      window.requestAnimationFrame(update);
+    }
+  }
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
+  video.addEventListener('canplay', schedule);
+  video.addEventListener('seeked', schedule);
+  if (reduceMotion.matches) {
+    section.style.height = 'auto';
+    video.controls = true;
+  } else {
+    schedule();
+  }
+})();
+</script>
 </body>
 </html>
 
