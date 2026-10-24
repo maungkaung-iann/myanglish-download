@@ -809,7 +809,9 @@ footer {
 }
 
 
-/* Fixed full-page motion background. Content remains readable over the video. */
+/* One continuous, fixed motion background across the entire page.
+   No per-section translucent backgrounds or visible horizontal bands. */
+body { background: #fff; isolation: isolate; }
 .motion-background {
     position: fixed;
     inset: 0;
@@ -826,9 +828,11 @@ footer {
     z-index: -1;
     pointer-events: none;
 }
-body { background: #fff; isolation: isolate; }
-.section-soft { background: rgba(246,246,247,.80); }
-.section:not(.section-soft), footer { background: rgba(255,255,255,.28); }
+/* Keep the video and wash behind all page content; make section surfaces uniform. */
+.hero, .quick-start, .section, .section-soft,
+.section:not(.section-soft), footer {
+    background: transparent;
+}
 @media (prefers-reduced-motion: reduce) {
     .motion-background { display: none; }
     .motion-background-wash { background: #fff; }
