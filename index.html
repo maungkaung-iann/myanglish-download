@@ -809,6 +809,20 @@ footer {
 }
 
 
+/* Glass treatment for the Myanglish typing demo box. */
+.demo {
+    background: rgba(18, 22, 34, .36);
+    border: 1px solid rgba(255,255,255,.32);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    backdrop-filter: blur(24px) saturate(150%);
+    box-shadow: 0 18px 55px rgba(12,20,40,.18);
+    color: #fff;
+}
+.demo-label, .demo-arrow { color: rgba(255,255,255,.72); }
+@media (prefers-reduced-motion: reduce) {
+    .demo { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(24,28,38,.90); }
+}
+
 /* Frosted glass surfaces over the continuous motion background. */
 :root {
     --glass-fill: rgba(255,255,255,.34);
