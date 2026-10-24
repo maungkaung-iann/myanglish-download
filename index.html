@@ -923,6 +923,24 @@ body { background: #fff; isolation: isolate; }
 .reading-panel code { overflow-wrap: anywhere; font-family: inherit; }
 .reading-panel .primary-button { margin-top: 8px; }
 @media (prefers-reduced-motion: reduce) { .reading-panel { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(255,255,255,.90); } }
+/* Avoid rendering distant sections until needed on long pages. */
+@supports (content-visibility: auto) {
+    .section {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 700px;
+    }
+}
+/* Prevent media from stretching beyond the content area. */
+.install-inline-image, .keyboard-layout-image {
+    max-width: 100%;
+    object-fit: contain;
+}
+@media (max-width: 700px) {
+    .reading-panel, .demo, .download-card {
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+    }
+}
 </style>
 </head>
 
@@ -1171,6 +1189,7 @@ body { background: #fff; isolation: isolate; }
                     <img
                         class="install-inline-image"
                         src="images/smartscreen-guide.png"
+                        loading="lazy" decoding="async" fetchpriority="low"
                         alt="Windows SmartScreen More info and Run anyway guide"
                     >
                 </div>
@@ -1217,6 +1236,7 @@ body { background: #fff; isolation: isolate; }
                     <img
                         class="keyboard-layout-image"
                         src="images/keyboard-layout-myanglish.png?v=3"
+                        loading="lazy" decoding="async" fetchpriority="low"
                         alt="Windows keyboard layout showing Myanglish IME"
                     >
                 </div>
