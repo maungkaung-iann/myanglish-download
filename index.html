@@ -944,7 +944,7 @@ body { background: #fff; isolation: isolate; }
 
 /* Autoplay video with scroll-driven zoom; glass border stays visible. */
 .scroll-demo { position: relative; height: 235vh; margin: 38px auto 0; }
-.scroll-demo-sticky { position: sticky; top: clamp(80px, 13vh, 145px); width: min(940px, 92vw); max-width: 100%; margin: auto; transform: scale(var(--demo-scale, 1)); transform-origin: center center; will-change: transform; }
+.scroll-demo-sticky { position: sticky; top: clamp(80px, 13vh, 145px); width: min(940px, 92vw); max-width: 100%; margin: auto; }
 .scroll-demo-glass {
     overflow: hidden; border-radius: 28px; padding: 14px;
     background: rgba(255,255,255,.36);
@@ -1141,7 +1141,7 @@ body { background: #fff; isolation: isolate; }
                     <div class="scroll-demo-top">
                         <span class="scroll-demo-dot"></span>
                         <span>MYANGLISH · TYPING DEMO</span>
-                        <span class="scroll-demo-hint">AUTO PLAY · SCROLL TO ZOOM</span>
+                        <span class="scroll-demo-hint">AUTO PLAY · LOOP</span>
                     </div>
                     <video id="typing-demo-video" autoplay loop muted playsinline preload="metadata" aria-label="Myanglish typing demonstration video">
                         <source src="video/typing-demo.mp4" type="video/mp4">
@@ -1152,7 +1152,7 @@ body { background: #fff; isolation: isolate; }
                     </div>
                     <div class="scroll-demo-track" aria-hidden="true"><div id="typing-demo-progress"></div></div>
                 </div>
-                <p class="scroll-demo-instruction">Video plays automatically · Scroll to zoom in and out</p>
+                <p class="scroll-demo-instruction">Video plays automatically · Scroll to explore</p>
             </div>
         </div>
 
@@ -1807,27 +1807,8 @@ body { background: #fff; isolation: isolate; }
 
   function update() {
     rafPending = false;
-    if (reducedMotion.matches) {
-      sticky.style.setProperty('--demo-scale', '1');
-      return;
-    }
-    const rect = section.getBoundingClientRect();
-    const distance = Math.max(1, rect.height - window.innerHeight);
-    const progress = clamp(-rect.top / distance, 0, 1);
-
-    // Zoom in during the first half, hold briefly, zoom out in the second.
-    const zoom = progress < 0.44
-      ? smooth(progress / 0.44)
-      : progress < 0.58
-        ? 1
-        : 1 - smooth((progress - 0.58) / 0.42);
-    // Keep a visible margin so the entire frosted-glass border remains in frame.
-    const viewportWidth = window.innerWidth;
-    const maxScale = Math.max(1, (viewportWidth - 28) / Math.max(1, sticky.offsetWidth));
-    const scale = 1 + (maxScale - 1) * zoom;
-    sticky.style.setProperty('--demo-scale', scale.toFixed(4));
-    bar.style.width = (progress * 100).toFixed(1) + '%';
-    counter.textContent = String(Math.round(progress * 100)).padStart(2, '0') + '%';
+    // Keep the glass frame at its original size; video playback stays automatic.
+    sticky.style.setProperty('--demo-scale', '1');
   }
   function schedule() {
     if (!rafPending) {
@@ -1852,7 +1833,7 @@ body { background: #fff; isolation: isolate; }
   let previousTime = 0;
   let frame = 0;
   let startDelay = performance.now() + 1800;
-  const pixelsPerSecond = 46;
+  const pixelsPerSecond = 110;
 
   function render() {
     control.textContent = enabled ? 'Ⅱ Pause auto scroll' : '▶ Resume auto scroll';
