@@ -809,6 +809,52 @@ footer {
 }
 
 
+/* Frosted glass surfaces over the continuous motion background. */
+:root {
+    --glass-fill: rgba(255,255,255,.34);
+    --glass-border: rgba(255,255,255,.65);
+    --glass-shadow: 0 12px 38px rgba(25,35,55,.10);
+}
+nav {
+    background: rgba(255,255,255,.48);
+    -webkit-backdrop-filter: blur(22px) saturate(145%);
+    backdrop-filter: blur(22px) saturate(145%);
+    border-bottom: 1px solid var(--glass-border);
+}
+.quick-start {
+    background: rgba(255,255,255,.30) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+    border-block: 1px solid var(--glass-border);
+}
+.hero-tag, .download-card, .smartscreen-note, .smart-action,
+.feature-example, .release-card, .myanglish-contact,
+.support-tags span, .download-details span {
+    background: var(--glass-fill);
+    border: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: blur(18px) saturate(145%);
+    backdrop-filter: blur(18px) saturate(145%);
+    box-shadow: var(--glass-shadow);
+}
+.hero-tag, .support-tags span, .download-details span {
+    box-shadow: 0 4px 18px rgba(25,35,55,.06);
+}
+.download-card, .smartscreen-note, .smart-action, .release-card {
+    border-radius: 28px;
+}
+.myanglish-contact:hover {
+    background: rgba(255,255,255,.60);
+}
+@media (prefers-reduced-motion: reduce) {
+    nav, .quick-start, .hero-tag, .download-card, .smartscreen-note,
+    .smart-action, .feature-example, .release-card, .myanglish-contact,
+    .support-tags span, .download-details span {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        background: rgba(255,255,255,.88);
+    }
+}
+
 /* One continuous, fixed motion background across the entire page.
    No per-section translucent backgrounds or visible horizontal bands. */
 body { background: #fff; isolation: isolate; }
@@ -833,6 +879,9 @@ body { background: #fff; isolation: isolate; }
 .section:not(.section-soft), footer {
     background: transparent;
 }
+/* Quick Start is a glass strip, not a separate solid section. */
+.quick-start { background: rgba(255,255,255,.30); }
+
 @media (prefers-reduced-motion: reduce) {
     .motion-background { display: none; }
     .motion-background-wash { background: #fff; }
