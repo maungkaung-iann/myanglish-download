@@ -942,43 +942,87 @@ body { background: #fff; isolation: isolate; }
     }
 }
 
-/* Autoplay video with scroll-driven zoom; glass border stays visible. */
-.scroll-demo { position: relative; height: 235vh; margin: 38px auto 0; }
-.scroll-demo-sticky { position: sticky; top: clamp(80px, 13vh, 145px); width: min(940px, 92vw); max-width: 100%; margin: auto; }
+/* Cinematic Floating Screen: isolated to the typing demo video. */
+.scroll-demo {
+    position: relative;
+    height: auto;
+    width: min(1280px, calc(100vw - 36px));
+    max-width: none;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: clamp(55px, 8vw, 110px) 0 72px;
+    padding: 28px 0 38px;
+    isolation: isolate;
+}
+.scroll-demo::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 8% 2% -3%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 35% 35%, rgba(108,225,244,.43), transparent 58%),
+                radial-gradient(ellipse at 75% 60%, rgba(156,145,246,.38), transparent 63%);
+    filter: blur(46px);
+    pointer-events: none;
+}
+.scroll-demo-sticky {
+    position: relative;
+    top: auto;
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+    transform: none;
+}
 .scroll-demo-glass {
-    overflow: hidden; border-radius: 28px; padding: 14px;
-    background: rgba(255,255,255,.36);
-    border: 1px solid rgba(255,255,255,.76);
+    overflow: hidden;
+    padding: clamp(7px, 1vw, 12px);
+    border-radius: clamp(20px, 2.8vw, 34px);
+    border: 1px solid rgba(255,255,255,.8);
+    background: rgba(255,255,255,.25);
     -webkit-backdrop-filter: blur(22px) saturate(145%);
     backdrop-filter: blur(22px) saturate(145%);
-    box-shadow: 0 22px 65px rgba(25,35,55,.15);
+    box-shadow: 0 38px 75px rgba(39,54,88,.19),
+                0 12px 26px rgba(40,61,96,.11),
+                inset 0 1px 0 rgba(255,255,255,.65);
+    transition: transform .5s ease, box-shadow .5s ease;
 }
-.scroll-demo-top, .scroll-demo-bottom {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 12px; padding: 8px 10px 15px;
-    font-size: 12px; font-weight: 700; letter-spacing: .10em; color: #323b49;
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .scroll-demo-glass:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 48px 90px rgba(39,54,88,.22),
+                    0 18px 30px rgba(40,61,96,.12),
+                    inset 0 1px 0 rgba(255,255,255,.65);
+    }
 }
-.scroll-demo-top { justify-content: flex-start; }
-.scroll-demo-hint { margin-left: auto; font-size: 11px; color: #626d7d; }
-.scroll-demo-dot { flex: none; width: 9px; height: 9px; border-radius: 50%; background: #50b69b; box-shadow: 0 0 0 4px rgba(80,182,155,.12); }
-#typing-demo-video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #11151d; border-radius: 18px; }
-.scroll-demo-bottom { padding: 16px 10px 11px; font-size: 11px; letter-spacing: .02em; }
-.scroll-demo-counter { font-variant-numeric: tabular-nums; }
-.scroll-demo-track { height: 4px; background: rgba(35,45,60,.12); border-radius: 5px; overflow: hidden; }
-#typing-demo-progress { height: 100%; width: 0; background: #343b4a; border-radius: inherit; }
-.scroll-demo-instruction { text-align: center; margin: 15px 0; color: #505969; font-size: 13px; }
+#typing-demo-video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    background: #f5f7fb;
+    border-radius: clamp(14px, 2vw, 24px);
+}
+.scroll-demo-caption {
+    margin: 22px 12px 0;
+    text-align: center;
+    color: #283448;
+    font-size: clamp(17px, 2.5vw, 28px);
+    font-weight: 650;
+    letter-spacing: -.03em;
+}
+.scroll-demo-subcaption {
+    margin: 8px 12px 0;
+    text-align: center;
+    color: #5c6878;
+    font-size: clamp(12px, 1.4vw, 15px);
+}
 @media (max-width: 700px) {
-    .scroll-demo { height: 175vh; }
-    .scroll-demo-sticky { top: 80px; }
-    .scroll-demo-glass { border-radius: 19px; padding: 9px; }
-    #typing-demo-video { border-radius: 12px; }
-    .scroll-demo-top, .scroll-demo-bottom { font-size: 10px; }
-    .scroll-demo-hint { font-size: 9px; }
+    .scroll-demo { width: calc(100vw - 24px); margin: 42px 0 44px; padding: 15px 0 24px; }
+    .scroll-demo::before { filter: blur(28px); }
 }
 @media (prefers-reduced-motion: reduce) {
-    .scroll-demo { height: auto; }
-    .scroll-demo-sticky { position: relative; top: auto; }
-    .scroll-demo-glass { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(255,255,255,.9); }
+    .scroll-demo-glass { transition: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 
 /* Optional page auto-scroll: visitors can pause at any time. */
@@ -1187,21 +1231,12 @@ body { background: #fff; isolation: isolate; }
         <div class="scroll-demo" aria-label="Myanglish typing video demonstration">
             <div class="scroll-demo-sticky">
                 <div class="scroll-demo-glass">
-                    <div class="scroll-demo-top">
-                        <span class="scroll-demo-dot"></span>
-                        <span>MYANGLISH · TYPING DEMO</span>
-                        <span class="scroll-demo-hint">AUTO PLAY · LOOP</span>
-                    </div>
                     <video id="typing-demo-video" autoplay loop muted playsinline preload="metadata" aria-label="Myanglish typing demonstration video">
                         <source src="video/typing-demo.mp4" type="video/mp4">
                     </video>
-                    <div class="scroll-demo-bottom">
-                        <span>English keyboard → Myanmar text</span>
-                        <span class="scroll-demo-counter" id="typing-demo-counter">00%</span>
-                    </div>
-                    <div class="scroll-demo-track" aria-hidden="true"><div id="typing-demo-progress"></div></div>
                 </div>
-                <p class="scroll-demo-instruction">Video plays automatically · Scroll to explore</p>
+                <h3 class="scroll-demo-caption">Type Naturally. Write in Myanmar.</h3>
+                <p class="scroll-demo-subcaption">Experience Myanglish IME in action.</p>
             </div>
         </div>
 
@@ -1848,42 +1883,18 @@ body { background: #fff; isolation: isolate; }
 <script>
 (() => {
   const video = document.getElementById('typing-demo-video');
-  const section = document.querySelector('.scroll-demo');
-  const sticky = document.querySelector('.scroll-demo-sticky');
-  const bar = document.getElementById('typing-demo-progress');
-  const counter = document.getElementById('typing-demo-counter');
-  if (!video || !section || !sticky) return;
-
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let rafPending = false;
-  const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
-  const smooth = t => t * t * (3 - 2 * t);
-
-  // Playback is independent of scroll position.
+  if (!video) return;
   video.muted = true;
   video.loop = true;
   video.autoplay = true;
   video.playsInline = true;
-  const play = () => video.play().catch(() => {});
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', play, {once:true});
-  else play();
-  video.addEventListener('canplay', play, {once:true});
-
-  function update() {
-    rafPending = false;
-    // Keep the glass frame at its original size; video playback stays automatic.
-    sticky.style.setProperty('--demo-scale', '1');
+  const start = () => video.play().catch(() => {});
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start, { once: true });
+  } else {
+    start();
   }
-  function schedule() {
-    if (!rafPending) {
-      rafPending = true;
-      requestAnimationFrame(update);
-    }
-  }
-  window.addEventListener('scroll', schedule, {passive:true});
-  window.addEventListener('resize', schedule, {passive:true});
-  reducedMotion.addEventListener?.('change', schedule);
-  schedule();
+  video.addEventListener('canplay', start, { once: true });
 })();
 </script>
 <button id="auto-scroll-control" class="auto-scroll-control" type="button" aria-pressed="true" aria-label="Pause automatic page scrolling">Ⅱ Pause auto scroll</button>
