@@ -1087,6 +1087,71 @@ body { background: #fff; isolation: isolate; }
     .myanglish-message-glass { border-radius: 22px; padding: 10px; }
     .myanglish-message-form textarea { height: 44vh; min-height: 210px; font-size: 15px; }
 }
+
+/* MacBook-style product frame. The original demo video remains uncropped. */
+.scroll-demo-glass {
+    position: relative;
+    width: 86%;
+    margin: 0 auto;
+    padding: clamp(8px, 1.2vw, 16px);
+    padding-top: clamp(16px, 2.1vw, 28px);
+    padding-bottom: clamp(13px, 1.8vw, 23px);
+    overflow: hidden;
+    border: 2px solid #777b80;
+    border-bottom-color: #303235;
+    border-radius: clamp(15px, 2.5vw, 30px) clamp(15px, 2.5vw, 30px) 5px 5px;
+    background: linear-gradient(135deg, #27292c, #08090b 38%, #181a1d);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: inset 0 0 0 1px #060708, 0 22px 48px rgba(15,20,30,.20);
+    transition: none;
+}
+.scroll-demo-glass::before {
+    content: "";
+    position: absolute;
+    top: clamp(5px, .65vw, 9px);
+    left: 50%;
+    width: clamp(4px, .5vw, 7px);
+    height: clamp(4px, .5vw, 7px);
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #314958, #10151a 70%);
+    box-shadow: 0 0 0 1px #33373b;
+}
+.scroll-demo-glass:hover {
+    transform: none;
+    box-shadow: inset 0 0 0 1px #060708, 0 22px 48px rgba(15,20,30,.20);
+}
+#typing-demo-video {
+    border-radius: 3px;
+    background: #050608;
+    opacity: 1;
+    object-fit: contain;
+}
+.macbook-base {
+    position: relative;
+    width: 100%;
+    height: clamp(13px, 2.1vw, 27px);
+    margin: -1px auto 0;
+    border-radius: 2px 2px 50% 50% / 2px 2px 65% 65%;
+    background: linear-gradient(180deg, #e3e5e7 0%, #b3b6ba 32%, #8c9096 58%, #d0d2d5 65%, #777c83 100%);
+    box-shadow: 0 14px 24px -10px rgba(15,20,30,.36), inset 0 1px 0 #f5f6f7;
+}
+.macbook-base::before {
+    content: "";
+    position: absolute;
+    left: 41%;
+    top: 0;
+    width: 18%;
+    height: 38%;
+    border-radius: 0 0 12px 12px;
+    background: linear-gradient(#8b9097, #c7cace);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,.22);
+}
+@media (max-width: 700px) {
+    .scroll-demo-glass { width: 92%; }
+}
+
 </style>
 </head>
 
@@ -1236,6 +1301,7 @@ body { background: #fff; isolation: isolate; }
                         <source src="video/typing-demo.mp4" type="video/mp4">
                     </video>
                 </div>
+                <div class="macbook-base" aria-hidden="true"></div>
                 <h3 class="scroll-demo-caption">Type Naturally. Write in Myanmar.</h3>
                 <p class="scroll-demo-subcaption">Experience Myanglish IME in action.</p>
             </div>
