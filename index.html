@@ -1088,90 +1088,6 @@ body { background: #fff; isolation: isolate; }
     .myanglish-message-form textarea { height: 44vh; min-height: 210px; font-size: 15px; }
 }
 
-/* Compact MacBook Pro-inspired interactive video frame. */
-.scroll-demo {
-    width: min(980px, calc(100vw - 48px));
-    margin-top: clamp(40px, 6vw, 76px);
-    padding: 24px 0 30px;
-}
-.scroll-demo::before {
-    inset: 16% 9% 8%;
-    background: radial-gradient(ellipse, rgba(110,120,140,.16), transparent 68%);
-    filter: blur(32px);
-}
-.scroll-demo-glass {
-    position: relative;
-    width: 90%;
-    margin: 0 auto;
-    padding: clamp(7px, .85vw, 11px);
-    padding-top: clamp(18px, 2vw, 24px);
-    padding-bottom: clamp(15px, 1.7vw, 21px);
-    overflow: hidden;
-    border: 1px solid #82858a;
-    border-bottom-color: #252629;
-    border-radius: clamp(14px, 2vw, 24px) clamp(14px, 2vw, 24px) 4px 4px;
-    background: linear-gradient(135deg, #36383b, #08090a 36%, #1b1c1f);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    box-shadow: inset 0 0 0 1px #08090a, 0 18px 36px rgba(15,20,30,.16);
-    transition: none;
-}
-.scroll-demo-glass::before {
-    content: "";
-    position: absolute;
-    top: clamp(6px, .75vw, 9px);
-    left: 50%;
-    width: 5px;
-    height: 5px;
-    transform: translateX(-50%);
-    border-radius: 50%;
-    background: radial-gradient(circle at 40% 35%, #334650, #10151a 70%);
-    box-shadow: 0 0 0 1px #34373b;
-}
-.scroll-demo-glass::after {
-    content: "MacBook Pro";
-    position: absolute;
-    bottom: 3px;
-    inset-inline: 0;
-    text-align: center;
-    font: 500 clamp(6px, .7vw, 9px)/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    letter-spacing: .03em;
-    color: #a4a6aa;
-    pointer-events: none;
-}
-.scroll-demo-glass:hover {
-    transform: none;
-    box-shadow: inset 0 0 0 1px #08090a, 0 18px 36px rgba(15,20,30,.16);
-}
-#typing-demo-video {
-    border-radius: 4px;
-    background: #050608;
-    opacity: 1;
-    object-fit: contain;
-    cursor: pointer;
-}
-#typing-demo-video:focus-visible { outline: 2px solid white; outline-offset: 3px; }
-.macbook-base {
-    position: relative;
-    width: 100%;
-    height: clamp(11px, 1.65vw, 19px);
-    margin: -1px auto 0;
-    border-radius: 2px 2px 50% 50% / 2px 2px 70% 70%;
-    background: linear-gradient(180deg, #d5d7da 0%, #9da1a6 24%, #70757c 58%, #a8acb1 68%, #585e65 100%);
-    box-shadow: 0 13px 20px -12px rgba(15,20,30,.40), inset 0 1px 0 #f3f4f5;
-}
-.macbook-base::before {
-    content: "";
-    position: absolute;
-    left: 42%; top: 0; width: 16%; height: 35%;
-    border-radius: 0 0 10px 10px;
-    background: linear-gradient(#676c73, #a9adb2);
-    box-shadow: inset 0 1px 2px rgba(0,0,0,.25);
-}
-@media (max-width: 700px) {
-    .scroll-demo { width: calc(100vw - 32px); }
-    .scroll-demo-glass { width: 92%; }
-}
 </style>
 </head>
 
@@ -1317,11 +1233,10 @@ body { background: #fff; isolation: isolate; }
         <div class="scroll-demo" aria-label="Myanglish typing video demonstration">
             <div class="scroll-demo-sticky">
                 <div class="scroll-demo-glass">
-                    <video id="typing-demo-video" autoplay loop muted playsinline preload="metadata" tabindex="0" role="button" aria-label="Pause typing demo video">
+                    <video id="typing-demo-video" autoplay loop muted playsinline preload="metadata" aria-label="Myanglish typing demonstration video">
                         <source src="video/typing-demo.mp4" type="video/mp4">
                     </video>
                 </div>
-                <div class="macbook-base" aria-hidden="true"></div>
                 <h3 class="scroll-demo-caption">Type Naturally. Write in Myanmar.</h3>
                 <p class="scroll-demo-subcaption">Experience Myanglish IME in action.</p>
             </div>
@@ -1982,22 +1897,6 @@ body { background: #fff; isolation: isolate; }
     start();
   }
   video.addEventListener('canplay', start, { once: true });
-  const updateLabel = () => video.setAttribute('aria-label',
-    video.paused ? 'Play typing demo video' : 'Pause typing demo video');
-  const togglePlayback = () => {
-    if (video.paused) video.play().catch(() => {});
-    else video.pause();
-  };
-  video.addEventListener('click', togglePlayback);
-  video.addEventListener('keydown', event => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      togglePlayback();
-    }
-  });
-  video.addEventListener('play', updateLabel);
-  video.addEventListener('pause', updateLabel);
-  updateLabel();
 })();
 </script>
 <button id="auto-scroll-control" class="auto-scroll-control" type="button" aria-pressed="true" aria-label="Pause automatic page scrolling">Ⅱ Pause auto scroll</button>
