@@ -1,0 +1,62 @@
+/* Subtle motion, scoped to presentation; all content is visible without JS. */
+@keyframes myanglish-arrive {
+  from { opacity: .4; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes myanglish-halo {
+  from { opacity: .55; transform: translate3d(-1%,0,0) scale(.97); }
+  to { opacity: .85; transform: translate3d(1%,-1%,0) scale(1.03); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fx-arrive { animation: myanglish-arrive .7s cubic-bezier(.2,.7,.2,1) both; }
+  .hero-inner > * { animation: myanglish-arrive .85s cubic-bezier(.2,.7,.2,1) both; }
+  .hero-inner > :nth-child(2) { animation-delay: .08s; }
+  .hero-inner > :nth-child(3) { animation-delay: .16s; }
+  .scroll-demo::before { animation: myanglish-halo 9s ease-in-out infinite alternate; }
+}
+.primary-button, .nav-download, .myanglish-contact, .myanglish-send-button {
+  transition: transform .22s ease, box-shadow .22s ease, background-color .22s ease;
+}
+.primary-button:focus-visible, .nav-right a:focus-visible,
+.myanglish-contact:focus-visible, .myanglish-send-button:focus-visible {
+  outline: 3px solid #52769a; outline-offset: 5px;
+}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  .primary-button:hover, .nav-download:hover, .myanglish-send-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(20,30,45,.18);
+  }
+  .myanglish-contact:hover { transform: translateY(-2px); }
+  .feature, .download-card, .release-card {
+    transition: transform .35s ease, box-shadow .35s ease;
+  }
+  .feature:hover, .download-card:hover, .release-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 42px rgba(30,40,55,.10);
+  }
+}
+.primary-button:active, .nav-download:active, .myanglish-send-button:active {
+  transform: translateY(0) scale(.98);
+}
+.nav-right a:not(.nav-download) {
+  position: relative;
+}
+.nav-right a:not(.nav-download)::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -7px;
+  height: 1px; background: currentColor; transform: scaleX(0);
+  transform-origin: left; transition: transform .25s ease;
+}
+.nav-right a:hover::after, .nav-right a:focus-visible::after { transform: scaleX(1); }
+nav { transition: box-shadow .25s ease; }
+nav.fx-scrolled { box-shadow: 0 8px 28px rgba(20,30,45,.08); }
+.myanglish-message-glass:focus-within {
+  box-shadow: 0 12px 36px rgba(30,45,65,.12), 0 0 0 2px rgba(100,130,160,.24);
+}
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior: auto; }
+  .fx-arrive, .hero-inner > *, .scroll-demo::before { animation: none !important; }
+  .primary-button, .nav-download, .myanglish-contact, .myanglish-send-button,
+  .feature, .download-card, .release-card, nav, .nav-right a::after {
+    transition: none !important; transform: none !important;
+  }
+}
