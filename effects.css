@@ -61,13 +61,16 @@ nav.fx-scrolled { box-shadow: 0 8px 28px rgba(20,30,45,.08); }
   }
 }
 
-/* Native custom cursor: no tracking loop, no touch-device overlay. */
-@media (hover: hover) and (pointer: fine) {
-  body { cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%229%22%20fill%3D%22white%22%20fill-opacity%3D%22.65%22%20stroke%3D%22white%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%229%22%20fill%3D%22none%22%20stroke%3D%22%23333b46%22%20stroke-width%3D%221%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%222%22%20fill%3D%22%23202630%22%2F%3E%3C%2Fsvg%3E") 16 16, auto; }
-  a, button, summary, [role="button"], input[type="submit"], input[type="button"] { cursor: pointer; }
-  input:not([type="submit"]):not([type="button"]), textarea, [contenteditable="true"] { cursor: text; }
-  button:disabled, input:disabled { cursor: not-allowed; }
+
+/* Electric cursor overlay never intercepts clicks or text selection. */
+.electric-cursor { position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:9999; }
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+ body { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='3' fill='%23bdfaff' stroke='%230078df'/%3E%3C/svg%3E") 8 8, auto; }
+ a,button,summary,[role="button"] { cursor:pointer; }
+ input,textarea,[contenteditable="true"] { cursor:text; }
+ button:disabled,input:disabled { cursor:not-allowed; }
 }
-@media (forced-colors: active) {
-  body { cursor: auto; }
+@media (prefers-reduced-motion:reduce), (forced-colors:active), (pointer:coarse) {
+ .electric-cursor { display:none; }
+ body { cursor:auto; }
 }
