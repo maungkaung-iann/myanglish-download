@@ -1087,6 +1087,18 @@ body { background: #fff; isolation: isolate; }
     .myanglish-message-glass { border-radius: 22px; padding: 10px; }
     .myanglish-message-form textarea { height: 44vh; min-height: 210px; font-size: 15px; }
 }
+
+/* Optional support link beneath the hero download. */
+.hero-donate { margin-top: 14px; }
+.hero-donate a {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; padding: 9px 24px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.75);
+    background: rgba(255,255,255,.55); color: #222;
+    font-size: 14px; font-weight: 600; text-decoration: none;
+}
+.hero-donate a:hover { background: rgba(255,255,255,.85); }
+.hero-donate a:focus-visible { outline: 2px solid #222; outline-offset: 4px; }
 </style>
 </head>
 
@@ -1156,6 +1168,10 @@ body { background: #fff; isolation: isolate; }
         >
             Download for Windows
         </a>
+
+        <div class="hero-donate">
+            <a href="https://ko-fi.com/myanglish" target="_blank" rel="noopener noreferrer" aria-label="Donate to Myanglish on Ko-fi (opens in a new tab)">Donate ↗</a>
+        </div>
 
         <div class="release-meta">
             Windows 11 · x64 · Version 1.0.20 · Free · Release
