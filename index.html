@@ -1099,6 +1099,28 @@ body { background: #fff; isolation: isolate; }
 }
 .hero-donate a:hover { background: rgba(255,255,255,.85); }
 .hero-donate a:focus-visible { outline: 2px solid #222; outline-offset: 4px; }
+
+/* Keep both header actions available on small screens. */
+.nav-right .nav-donate {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; padding: 9px 16px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.8);
+    background: rgba(255,255,255,.55); color: #222; white-space: nowrap;
+}
+.nav-right .nav-donate:hover { background: rgba(255,255,255,.85); }
+.nav-right .nav-donate:focus-visible { outline: 2px solid #222; outline-offset: 4px; }
+@media (min-width: 901px) and (max-width: 1200px) {
+    .nav-inner { flex-wrap: wrap; padding-block: 12px; gap: 12px; }
+    .nav-right { flex-wrap: wrap; gap: 14px; }
+}
+@media (max-width: 900px) {
+    .nav-right a.nav-donate { display: inline-flex; }
+}
+@media (max-width: 420px) {
+    .nav-inner { padding-inline: 12px; gap: 8px; }
+    .nav-right { gap: 6px; }
+    .nav-right .nav-download, .nav-right .nav-donate { padding-inline: 12px; }
+}
 </style>
 </head>
 
@@ -1130,6 +1152,7 @@ body { background: #fff; isolation: isolate; }
             >
                 Download
             </a>
+            <a class="nav-donate" href="https://ko-fi.com/myanglish" target="_blank" rel="noopener noreferrer" aria-label="Donate to Myanglish on Ko-fi (opens in a new tab)">Donate ↗</a>
         </div>
     </div>
 </nav>
