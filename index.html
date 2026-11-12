@@ -1123,15 +1123,21 @@ body { background: #fff; isolation: isolate; }
 }
 
 /* Full/Lite download choices: inherit existing colors and visual design */
-.myanglish-dual-download{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:16px 0}
-.myanglish-dual-download .primary-button{margin:0;white-space:normal}
+.myanglish-dual-download{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:nowrap;margin:12px 0}
+.myanglish-dual-download .primary-button{margin:0;white-space:nowrap;flex:0 1 auto;padding-inline:16px;font-size:clamp(11px,1vw,14px)}
 .myanglish-lite-button{background:transparent!important;color:inherit!important;border:1px solid currentColor}
 .myanglish-lite-notice{font-size:13px;line-height:1.7;color:inherit;opacity:.72;margin:9px 0}
 .myanglish-step-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;width:100%}
 .myanglish-step-split>div{min-width:0}
 .myanglish-step-split h4{margin:0 0 9px;font-size:18px}
 .myanglish-step-split p{margin:0 0 12px}
-@media(max-width:650px){.myanglish-step-split{grid-template-columns:1fr;gap:25px}.myanglish-dual-download{flex-direction:column;align-items:stretch}.myanglish-dual-download .primary-button{width:100%;text-align:center}}
+@media(max-width:650px){.myanglish-step-split{grid-template-columns:1fr;gap:25px}.myanglish-dual-download{flex-direction:row;align-items:center;gap:6px}.myanglish-dual-download .primary-button{width:auto;text-align:center;padding:10px 8px;font-size:10px}}
+
+/* Keep header download actions side by side without growing navigation height */
+.nav-right>.myanglish-dual-download{margin:0;display:flex;flex:0 0 auto;gap:7px;align-items:center}
+.nav-right>.myanglish-dual-download .primary-button{display:inline-flex;align-items:center;justify-content:center;padding:9px 11px;font-size:11px;line-height:1.2;border-radius:999px;min-height:37px}
+.nav-right>.myanglish-dual-download .myanglish-lite-button{border:1px solid currentColor}
+@media(max-width:1100px){.nav-right>.myanglish-dual-download .primary-button{font-size:10px;padding:8px 7px}}
 </style>
 </head>
 
@@ -1157,7 +1163,7 @@ body { background: #fff; isolation: isolate; }
             <a href="#story">My Story</a>
             <a href="#support">Support</a>
 
-            <div class="myanglish-dual-download"><a class="primary-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe">Download Full Version</a><a class="primary-button myanglish-lite-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/lite-v1.0.20/Myanglish-Lite-Windows-x64.zip" download>Download Lite Version</a></div>
+            <div class="myanglish-dual-download"><a class="primary-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe">Download Full Version</a><a class="primary-button myanglish-lite-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/lite-v1.0.20/MyanglishInstaller-Lite.exe" download>Download Lite Version</a></div>
             <a class="nav-donate" href="https://ko-fi.com/myanglish" target="_blank" rel="noopener noreferrer" aria-label="Donate to Myanglish on Ko-fi (opens in a new tab)">Donate ↗</a>
         </div>
     </div>
@@ -1191,7 +1197,7 @@ body { background: #fff; isolation: isolate; }
             <span class="hero-tag">Fast &amp; Easy</span>
         </div>
 
-        <div class="myanglish-dual-download"><a class="primary-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe">Download Full Version</a><a class="primary-button myanglish-lite-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/lite-v1.0.20/Myanglish-Lite-Windows-x64.zip" download>Download Lite Version</a></div>
+        <div class="myanglish-dual-download"><a class="primary-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe">Download Full Version</a><a class="primary-button myanglish-lite-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/lite-v1.0.20/MyanglishInstaller-Lite.exe" download>Download Lite Version</a></div>
 
         <div class="hero-donate">
             <a href="https://ko-fi.com/myanglish" target="_blank" rel="noopener noreferrer" aria-label="Donate to Myanglish on Ko-fi (opens in a new tab)">Donate ↗</a>
@@ -1314,9 +1320,9 @@ body { background: #fff; isolation: isolate; }
                 <span>Free</span>
             </div>
 
-            <div class="myanglish-dual-download"><a class="primary-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe">Download Full Version</a><a class="primary-button myanglish-lite-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/lite-v1.0.20/Myanglish-Lite-Windows-x64.zip" download>Download Lite Version</a></div>
+            <div class="myanglish-dual-download"><a class="primary-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe">Download Full Version</a><a class="primary-button myanglish-lite-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/lite-v1.0.20/MyanglishInstaller-Lite.exe" download>Download Lite Version</a></div>
 
-            <p class="myanglish-lite-notice">Lite Version: Public Test Release (ZIP) ဖြစ်ပါတယ်။ ZIP ကို Extract လုပ်ပြီး MyanglishInstaller-Lite.exe ကို ဖွင့်ပါ။ Windows Security Warning ကို Lite က အမြဲဖြေရှင်းပေးနိုင်မည်ဟု အာမမခံနိုင်ပါ။</p>
+            <p class="myanglish-lite-notice">Lite Version: Public Test Release ဖြစ်ပါတယ်။ MyanglishInstaller-Lite.exe ကို တိုက်ရိုက် Download လုပ်နိုင်ပါတယ်။ Windows Security Warning ကို Lite က အမြဲဖြေရှင်းပေးနိုင်မည်ဟု အာမမခံနိုင်ပါ။</p>
             <div class="file-name">
                 Full: MyanglishInstaller.exe · v1.0.20 · Unsigned Release
             </div>
@@ -1349,7 +1355,7 @@ body { background: #fff; isolation: isolate; }
                 <div class="step-text">
                     <strong>Download</strong>
                     <p>
-                        Download Full Version သို့မဟုတ် Download Lite Version ကို ရွေးပါ။ Lite Version ကို ZIP ဖိုင်အဖြစ် Download လုပ်ပြီး Extract လုပ်ပါ။
+                        Download Full Version သို့မဟုတ် Download Lite Version ကို ရွေးပါ။ Lite Version ကို Download လုပ်ပါ။
                     </p>
                 </div>
             </div>
@@ -1746,7 +1752,7 @@ body { background: #fff; isolation: isolate; }
             </div>
 
 
-            <div class="myanglish-dual-download"><a class="primary-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe">Download Full Version</a><a class="primary-button myanglish-lite-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/lite-v1.0.20/Myanglish-Lite-Windows-x64.zip" download>Download Lite Version</a></div>
+            <div class="myanglish-dual-download"><a class="primary-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe">Download Full Version</a><a class="primary-button myanglish-lite-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/lite-v1.0.20/MyanglishInstaller-Lite.exe" download>Download Lite Version</a></div>
 
         </div>
 
