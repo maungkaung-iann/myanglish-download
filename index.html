@@ -1121,6 +1121,17 @@ body { background: #fff; isolation: isolate; }
     .nav-right { gap: 6px; }
     .nav-right .nav-download, .nav-right .nav-donate { padding-inline: 12px; }
 }
+
+/* Full/Lite download choices: inherit existing colors and visual design */
+.myanglish-dual-download{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:16px 0}
+.myanglish-dual-download .primary-button{margin:0;white-space:normal}
+.myanglish-lite-button{background:transparent!important;color:inherit!important;border:1px solid currentColor}
+.myanglish-lite-notice{font-size:13px;line-height:1.7;color:inherit;opacity:.72;margin:9px 0}
+.myanglish-step-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;width:100%}
+.myanglish-step-split>div{min-width:0}
+.myanglish-step-split h4{margin:0 0 9px;font-size:18px}
+.myanglish-step-split p{margin:0 0 12px}
+@media(max-width:650px){.myanglish-step-split{grid-template-columns:1fr;gap:25px}.myanglish-dual-download{flex-direction:column;align-items:stretch}.myanglish-dual-download .primary-button{width:100%;text-align:center}}
 </style>
 </head>
 
@@ -1146,12 +1157,7 @@ body { background: #fff; isolation: isolate; }
             <a href="#story">My Story</a>
             <a href="#support">Support</a>
 
-            <a
-                class="nav-download"
-                href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe"
-            >
-                Download
-            </a>
+            <div class="myanglish-dual-download"><a class="primary-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe">Download Full Version</a><a class="primary-button myanglish-lite-button" href="https://github.com/maungkaung-iann/myanglish-download/releases" title="Lite public release is being prepared">Download Lite Version</a></div>
             <a class="nav-donate" href="https://ko-fi.com/myanglish" target="_blank" rel="noopener noreferrer" aria-label="Donate to Myanglish on Ko-fi (opens in a new tab)">Donate ↗</a>
         </div>
     </div>
@@ -1185,12 +1191,7 @@ body { background: #fff; isolation: isolate; }
             <span class="hero-tag">Fast &amp; Easy</span>
         </div>
 
-        <a
-            class="primary-button"
-            href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe"
-        >
-            Download for Windows
-        </a>
+        <div class="myanglish-dual-download"><a class="primary-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe">Download Full Version</a><a class="primary-button myanglish-lite-button" href="https://github.com/maungkaung-iann/myanglish-download/releases" title="Lite public release is being prepared">Download Lite Version</a></div>
 
         <div class="hero-donate">
             <a href="https://ko-fi.com/myanglish" target="_blank" rel="noopener noreferrer" aria-label="Donate to Myanglish on Ko-fi (opens in a new tab)">Donate ↗</a>
@@ -1313,15 +1314,11 @@ body { background: #fff; isolation: isolate; }
                 <span>Free</span>
             </div>
 
-            <a
-                class="primary-button"
-                href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe"
-            >
-                Download for Windows
-            </a>
+            <div class="myanglish-dual-download"><a class="primary-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe">Download Full Version</a><a class="primary-button myanglish-lite-button" href="https://github.com/maungkaung-iann/myanglish-download/releases" title="Lite public release is being prepared">Download Lite Version</a></div>
 
+            <p class="myanglish-lite-notice">Lite Version: Public Download မတင်ရသေးပါ။ Lite Button က Official GitHub Releases Page ကို ဖွင့်ပေးပါမယ်။ Lite Installer မရှိသေးရင် Download မလုပ်နိုင်သေးပါ။ Windows Security Warning ကို Lite က အမြဲဖြေရှင်းပေးနိုင်မည်ဟု အာမမခံနိုင်ပါ။</p>
             <div class="file-name">
-                MyanglishInstaller.exe · Version 1.0.20 · Unsigned Release
+                Full: MyanglishInstaller.exe · v1.0.20 · Unsigned Release
             </div>
 
         </div>
@@ -1339,8 +1336,7 @@ body { background: #fff; isolation: isolate; }
             <h2>Myanglish Install ပြုလုပ်နည်း</h2>
 
             <p>
-                MyanglishInstaller.exe ကို Download လုပ်ပြီး
-                အောက်ပါအဆင့်တွေအတိုင်း တပ်ဆင်နိုင်ပါတယ်။
+                Full Version သို့မဟုတ် Lite Version ကို ရွေးပြီး အောက်ပါအဆင့်တွေအတိုင်း တပ်ဆင်နိုင်ပါတယ်။
             </p>
         </div>
 
@@ -1353,8 +1349,7 @@ body { background: #fff; isolation: isolate; }
                 <div class="step-text">
                     <strong>Download</strong>
                     <p>
-                        Download for Windows ကိုနှိပ်ပြီး
-                        MyanglishInstaller.exe ကို Download လုပ်ပါ။
+                        Download Full Version သို့မဟုတ် Download Lite Version ကို ရွေးပါ။ Lite Version ရဲ့ Public Release မတင်ရသေးပါ။
                     </p>
                 </div>
             </div>
@@ -1364,11 +1359,11 @@ body { background: #fff; isolation: isolate; }
                 <div class="step-number">2</div>
 
                 <div class="step-text">
-                    <strong>Run MyanglishInstaller.exe</strong>
-                    <p>
-                        Download လုပ်ထားတဲ့ MyanglishInstaller.exe ကို double-click လုပ်ပါ။
-                        Administrator permission မေးလာရင် Yes ကိုနှိပ်ပါ။
-                    </p>
+                    <strong>Run Installer — Full Version / Lite Version</strong>
+                    <div class="myanglish-step-split">
+                        <div><h4>Full Version</h4><p><strong>Run MyanglishInstaller.exe</strong></p><p>Download လုပ်ထားတဲ့ MyanglishInstaller.exe ကို double-click လုပ်ပါ။ Right-click → Run as administrator မရွေးပါနှင့်။</p></div>
+                        <div><h4>Lite Version</h4><p><strong>Run MyanglishInstaller-Lite.exe</strong></p><p>Windows Smart App Control / SmartScreen Error ကြုံနေရသူများအတွက် စမ်းသပ်နိုင်တဲ့ Lite Version ဖြစ်ပါတယ်။ Installer ကို double-click လုပ်ပါ။ Right-click → Run as administrator မရွေးပါနှင့်။</p><p>Lite မှာ Automatic Updater နဲ့ မလိုအပ်တဲ့ Background Components တွေကို ဖယ်ရှားထားပါတယ်။</p></div>
+                    </div>
                 </div>
             </div>
 
@@ -1379,8 +1374,7 @@ body { background: #fff; isolation: isolate; }
                 <div class="step-text">
                     <strong>More info</strong>
                     <p>
-                        Windows SmartScreen ပေါ်လာပါက
-                        More info ကိုနှိပ်ပါ။
+                        Windows SmartScreen Warning ပေါ်လာနိုင်ပါတယ်။ Smart App Control က Block လုပ်ထားပါက Protection ကို မပိတ်ပါနှင့်။
                     </p>
 
                     <img
@@ -1399,8 +1393,7 @@ body { background: #fff; isolation: isolate; }
                 <div class="step-text">
                     <strong>Run anyway</strong>
                     <p>
-                        Run anyway ကိုနှိပ်ပြီး
-                        installer ကို ဆက်ဖွင့်ပါ။
+                        Windows က လုံခြုံရေးသတိပေးချက် ပြပါက File Source ကို အရင်စစ်ဆေးပါ။ Smart App Control Block ကို Security ပိတ်ပြီး မကျော်ပါနှင့်။
                     </p>
                 </div>
             </div>
@@ -1412,8 +1405,7 @@ body { background: #fff; isolation: isolate; }
                 <div class="step-text">
                     <strong>Allow Installation</strong>
                     <p>
-                        Windows က ခွင့်ပြုချက်တောင်းလာပါက
-                        Yes ကိုနှိပ်ပါ။
+                        Windows User Account Control (UAC) က ခွင့်ပြုချက်တောင်းလာပါက File Name နဲ့ Download Source ကို စစ်ဆေးပြီး ယုံကြည်စိတ်ချရမှ Yes ကိုနှိပ်ပါ။
                     </p>
                 </div>
             </div>
@@ -1738,7 +1730,7 @@ body { background: #fff; isolation: isolate; }
 
                 <div>
                     <span>PACKAGE</span>
-                    <strong>MyanglishInstaller.exe</strong>
+                    <strong>MyanglishInstaller.exe (Full)</strong>
                 </div>
 
                 <div>
@@ -1754,12 +1746,7 @@ body { background: #fff; isolation: isolate; }
             </div>
 
 
-            <a
-                class="primary-button"
-                href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe"
-            >
-                Download v1.0.20
-            </a>
+            <div class="myanglish-dual-download"><a class="primary-button" href="https://github.com/maungkaung-iann/myanglish-download/releases/download/v1.0.20/MyanglishInstaller.exe">Download Full Version</a><a class="primary-button myanglish-lite-button" href="https://github.com/maungkaung-iann/myanglish-download/releases" title="Lite public release is being prepared">Download Lite Version</a></div>
 
         </div>
 
